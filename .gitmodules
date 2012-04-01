@@ -1,3 +1,9 @@
 [submodule "vendor/ZF2"]
 	path = vendor/ZF2
 	url = https://github.com/zendframework/zf2.git
+[submodule "vendor/Propel"]
+	path = library/Propel
+	url = https://github.com/propelorm/PropelBundle.git
+[submodule "tests/vendor/phpunit"]
+	path = tests/vendor/phpunit
+	url = https://github.com/sebastianbergmann/phpunit
