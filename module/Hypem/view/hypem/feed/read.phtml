@@ -8,7 +8,7 @@
 		$progress = 0;
 	// Add META refresh for browsers without Javascript support
 	// @var \Zend\View\Helper\HeadMeta
-	$this->headMeta()->appendHttpEquiv('Refresh', '2; URL=' . $this->url('feed-read') . '?progress=' . (string) $this->progress);
+	$this->headMeta()->appendHttpEquiv('Refresh', '2; URL=' . $this->url('feed-read') . '?progress=' . (string) ($this->progress + $progressStep));
 ?>
 <h1>Reading feed</h1>
 <p class="progress-percentage" href="<?php echo $this->url('feed-read'); ?>">

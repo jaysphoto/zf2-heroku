@@ -6,4 +6,4 @@
 	url = https://github.com/propelorm/PropelBundle.git
 [submodule "tests/vendor/phpunit"]
 	path = tests/vendor/phpunit
-	url = https://github.com/sebastianbergmann/phpunit
+	url = git://github.com/sebastianbergmann/phpunit
