@@ -1,8 +1,14 @@
 {
-	"name": "jaysphoto/sandbox",
-	"description": "Sandbox environment for PHP development",
+	"name": "jaysphoto/zf2-heroku",
+	"description": "Zend Framework 2 skeleton application for Heroku",
 	"license": "BSD-3-Clause",
 	"homepage": "http://www.jayhaabee.nl/",
+    "keywords": [
+        "php",
+        "heroku",
+        "zf2",
+        "zend framework 2"
+    ],
 
 	"require": {
         "php": ">=5.3.3",
