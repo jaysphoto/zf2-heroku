@@ -20,9 +20,6 @@ for var in `env|cut -f1 -d=`; do
   echo "PassEnv $var" >> /app/apache/conf/httpd.conf;
 done
 
-# Add our local configuration to the apache configuration
-echo "Include /app/www/heroku/conf/*.conf" >> /app/apache/conf/httpd.conf
-
 # Setup apache logs
 touch /app/apache/logs/error_log
 touch /app/apache/logs/access_log
@@ -32,17 +29,25 @@ export LD_LIBRARY_PATH=/app/php/ext
 export PHP_INI_SCAN_DIR=/app/www
 
 # Install temporary 'booting..' message
-mv www/public/index.php www/public/index.php.orig
+# mv www/public/index.php www/public/index.php.orig
 
-echo 'Application is booting' > www/public/index.php
+/app/apache/bin/httpd -DNO_DETACH &
+PID=$!
 
-echo "Launching apache"
-exec /app/apache/bin/httpd -DNO_DETACH
+# echo 'Application is booting' > www/public/index.php
 
 echo "Installing application"
 sh www/heroku/app-boot.sh
 
 # Move original index.php in place
-mv www/public/index.php.orig www/public/index.php
+# mv www/public/index.php.orig www/public/index.php
 
-echo "Application is ready"
+# Add our local configuration to the apache configuration
+echo "Include /app/www/heroku/conf/*.conf" >> /app/apache/conf/httpd.conf
+
+# Restart httpd with new configuration
+kill $PID
+sleep 5
+
+echo "Launching apache"
+exec /app/apache/bin/httpd -DNO_DETACH
