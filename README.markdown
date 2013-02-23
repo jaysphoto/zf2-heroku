@@ -1,7 +1,7 @@
-ZF2-Heroku
+zf2-heroku
 ==========
 
-Zend Framework skeleton application for Heroku
+Zend Framework 2 skeleton application for Heroku.
 
 This is an experiment to deploy a ZF2 application using Composer in the 
 Heroku cloud. Ofcourse we could have used git submodules, but this was more fun.
@@ -63,11 +63,14 @@ is at work, the contents of the index.php in the web root is displayed.
 The temporary httpd is necessary, otherwise the App will be marked as 'crashed'
 by Heroku and the 'R10 boot timeout' message is displayed.
 
+See [Heroku error codes](https://devcenter.heroku.com/articles/error-codes#r10-boot-timeout) for details
+
 Links
 -----
 
-@link http://getcomposer.org/
-@link https://github.com/heroku/heroku-buildpack-php
-@link https://github.com/zendframework/ZendSkeletonApplication
-@link https://devcenter.heroku.com/articles/cedar
-@link https://devcenter.heroku.com/articles/error-codes#r10-boot-timeout
+This application and the ideas it's based upon is built on the work of others:
+
+* [Composer](http://getcomposer.org/)
+* [Heroku buildpack for PHP](https://github.com/heroku/heroku-buildpack-php)
+* [Heroku Cedar Stack](https://devcenter.heroku.com/articles/cedar)
+* [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
