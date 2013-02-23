@@ -3,6 +3,9 @@
 
 # @link https://github.com/winglian/Heroku-PHP
 
+# echo "Installing application"
+sh www/heroku/app-boot.sh
+
 # echo "Installing PECL APC"
 # /app/php/bin/pecl install apc
 
