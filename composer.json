@@ -4,16 +4,8 @@
 	"license": "BSD-3-Clause",
 	"homepage": "http://www.jayhaabee.nl/",
 
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "git@bitbucket.org:ticketscript/threading.git"
-		}
-	],
-
 	"require": {
         "php": ">=5.3.3",
-		"zendframework/zendframework": "2.*",
-		"ticketscript/threading": "dev-develop"
+		"zendframework/zendframework": "2.*"
 	}
 }
