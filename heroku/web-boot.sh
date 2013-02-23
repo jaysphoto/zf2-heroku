@@ -3,9 +3,6 @@
 
 # @link https://github.com/winglian/Heroku-PHP
 
-# echo "Installing application"
-sh www/heroku/app-boot.sh
-
 # echo "Installing PECL APC"
 # /app/php/bin/pecl install apc
 
@@ -16,8 +13,8 @@ sh www/heroku/app-boot.sh
 
 sed -i 's/Listen 80/Listen '$PORT'/' /app/apache/conf/httpd.conf
 # sed -i 's/^DocumentRoot/# DocumentRoot/' /app/apache/conf/httpd.conf
-# sed -i 's/^ServerLimit 1/ServerLimit 8/' /app/apache/conf/httpd.conf
-# sed -i 's/^MaxClients 1/MaxClients 8/' /app/apache/conf/httpd.conf
+sed -i 's/^ServerLimit 1/ServerLimit 8/' /app/apache/conf/httpd.conf
+sed -i 's/^MaxClients 1/MaxClients 8/' /app/apache/conf/httpd.conf
 
 for var in `env|cut -f1 -d=`; do
   echo "PassEnv $var" >> /app/apache/conf/httpd.conf;
@@ -34,5 +31,18 @@ tail -F /app/apache/logs/access_log &
 export LD_LIBRARY_PATH=/app/php/ext
 export PHP_INI_SCAN_DIR=/app/www
 
+# Install temporary 'booting..' message
+mv www/public/index.php www/public/index.php.orig
+
+echo 'Application is booting' > www/public/index.php
+
 echo "Launching apache"
 exec /app/apache/bin/httpd -DNO_DETACH
+
+echo "Installing application"
+sh www/heroku/app-boot.sh
+
+# Move original index.php in place
+mv www/public/index.php.orig www/public/index.php
+
+echo "Application is ready"
