@@ -28,26 +28,21 @@ tail -F /app/apache/logs/access_log &
 export LD_LIBRARY_PATH=/app/php/ext
 export PHP_INI_SCAN_DIR=/app/www
 
-# Install temporary 'booting..' message
-# mv www/public/index.php www/public/index.php.orig
-
+# Start a temporary apache process
+# This will display the index.php in the root
+# while we are booting the ZF2 application
 /app/apache/bin/httpd -DNO_DETACH &
 PID=$!
 
-# echo 'Application is booting' > www/public/index.php
-
 echo "Installing application"
 sh www/heroku/app-boot.sh
-
-# Move original index.php in place
-# mv www/public/index.php.orig www/public/index.php
 
 # Add our local configuration to the apache configuration
 echo "Include /app/www/heroku/conf/*.conf" >> /app/apache/conf/httpd.conf
 
 # Restart httpd with new configuration
 kill $PID
-sleep 5
+sleep 2
 
 echo "Launching apache"
 exec /app/apache/bin/httpd -DNO_DETACH
