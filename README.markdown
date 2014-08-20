@@ -21,21 +21,49 @@ automatic.
 
 Example:
 
-    jaysphoto@sandbox:~/165196 (zf2-heroku) $ git push heroku HEAD:master                                                                                                                                                                           
-    Counting objects: 7, done.                                                                                                                                                                                                                      
-    Delta compression using up to 2 threads.                                                                                                                                                                                                        
-    Compressing objects: 100% (4/4), done.                                                                                                                                                                                                          
-    Writing objects: 100% (5/5), 501 bytes, done.                                                                                                                                                                                                   
-    Total 5 (delta 2), reused 0 (delta 0)                                                                                                                                                                                                           
-    ----->  PHP app detected                                                                                                                                                                                                                         
-    ----->  Bundling Apache version 2.2.22                                                                                                                                                                                                           
-    ----->  Bundling PHP version 5.3.10                                                                                                                                                                                                              
-    ----->  Discovering process types                                                                                                                                                                                                                
-            Procfile declares types -> web                                                                                                                                                                                                           
+    master!zf2-heroku *> push heroku master
+    Fetching repository, done.
+    Counting objects: 1, done.
+    Writing objects: 100% (1/1), 188 bytes | 0 bytes/s, done.
+    Total 1 (delta 0), reused 0 (delta 0)
     
-    ----->  Compiled slug size: 9.6MB                                                                                                                                                                                                                
-    ----->  Launching... done, v13                                                                                                                                                                                                                   
-            http://jaysphoto.herokuapp.com deployed to Heroku
+    -----> PHP app detected
+    -----> Resolved composer.lock requirement for PHP >=5.3.3 to version 5.5.15.
+    -----> Installing system packages...
+           - PHP 5.5.15
+           - Apache 2.4.10
+           - Nginx 1.6.0
+    -----> Installing PHP extensions...
+           - zend-opcache (automatic; bundled, using 'ext-zend-opcache.ini')
+    -----> Installing dependencies...
+           Composer version 1e27ff5e22df81e3cd0cd36e5fdd4a3c5a031f4a 2014-08-11 15:46:48
+    
+     !     WARNING: You have put Composer's vendor directory under version control.
+           That directory should not be in your Git repository; only composer.json
+           and composer.lock should be added, with Composer handling installation.
+           Please 'git rm --cached vendor/' to remove the folder from your index,
+           then add '/vendor/' to your '.gitignore' list to remove this notice.
+           For more information, refer to the Composer FAQ: http://bit.ly/1rlCSZU
+    
+           Loading composer repositories with package information
+           Installing dependencies from lock file
+             - Installing zendframework/zendxml (1.0.0)
+               Loading from cache
+           
+             - Installing zendframework/zendframework (2.3.2)
+               Loading from cache
+           
+           Generating optimized autoload files
+    -----> Preparing runtime environment...
+    -----> Discovering process types
+           Procfile declares types -> web
+    
+    -----> Compressing... done, 64.6MB
+    -----> Launching... done, v16
+           http://jaysphoto.herokuapp.com/ deployed to Heroku
+    
+    To git@heroku.com:jaysphoto.git
+       d4982ab..2e218af  master -> master
 
 Heroku bootstrap
 ----------------
@@ -43,27 +71,17 @@ Heroku bootstrap
 The following files are used to automate the Heroku bootstrap:
 
 * Procfile (Cedar 'boot' file, which boots the web server)
-* heroku/app-boot.sh (PHP Web application bootstrap file)
-* heroku/web-boot.sh (httpd bootstrap file)
-* heroku/conf/default.conf (Apache default config)
 * composer.json
 
 Documentation
 -------------
 
 When the application is pushed to heroku the following will happen:
-* Heroku reads the Procfile and starts the web-boot.sh script
-* Apache is configured and a temporary httpd process is launched
+* Heroku reads the Procfile and boots apache2 with php
+* Apache is configured and a httpd process is launched
 * Composer installs ZF2 and its dependencies
-* When ready, the httpd is reconfigured for ZF2 and restarted
 
-It takes over a minute for composer to install Zend Framework 2. While composer 
-is at work, the contents of the index.php in the web root is displayed.
-
-The temporary httpd is necessary, otherwise the App will be marked as 'crashed'
-by Heroku and the 'R10 boot timeout' message is displayed.
-
-See [Heroku error codes](https://devcenter.heroku.com/articles/error-codes#r10-boot-timeout) for details
+It takes a few seconds for composer to install Zend Framework 2.
 
 Links
 -----
